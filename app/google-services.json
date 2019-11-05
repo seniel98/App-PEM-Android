@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "864367713063",
+    "firebase_url": "https://biolab-app.firebaseio.com",
+    "project_id": "biolab-app",
+    "storage_bucket": "biolab-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864367713063:android:ad0da0184b87e830ca2702",
+        "android_client_info": {
+          "package_name": "com.jdpadron98.biolabapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864367713063-9q3j2si5418ik53u0e3brink5pedkti8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0oOcfzg9ago8IYLK4PTHY6CqzaMj3r1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864367713063-9q3j2si5418ik53u0e3brink5pedkti8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
