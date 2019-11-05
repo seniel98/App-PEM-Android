@@ -16,7 +16,7 @@ public class ProfileModel implements ProfileContract.Model {
     }
 
     /**
-     *
+     * Method that reads data from repository
      * @param table1Data
      * @param table2Data
      * @param dataCallback

@@ -27,7 +27,8 @@ public class GuestPresenter implements GuestContract.Presenter {
     }
 
     /**
-     *
+     * Method that is linked with the model to read data from database and set the values retrieved
+     * to the variables of Table1Data and Table2Data and then pass them to the router
      */
     @Override
     public void interactWithModel() {

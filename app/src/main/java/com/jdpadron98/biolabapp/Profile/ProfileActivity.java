@@ -159,6 +159,11 @@ public class ProfileActivity
         return id;
     }
 
+    /**
+     * Method that makes an Alert dialog on the app in order to request access permission to the
+     * camera.
+     * THIS METHOD IS ONLY EXECUTED UNTIL THE PERMISSION IS GRANTED.
+     */
     private void requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
@@ -187,6 +192,13 @@ public class ProfileActivity
         }
     }
 
+    /**
+     * Method that checks if the permission was Granted or not. If it is then we go to the presenter.
+     * THIS METHOD IS ONLY EXECUTED UNTIL THE PERMISSION IS GRANTED OR THE FIRST TIME IS GRANTED.
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA) {

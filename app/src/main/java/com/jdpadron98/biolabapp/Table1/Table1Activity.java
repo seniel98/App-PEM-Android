@@ -47,7 +47,7 @@ public class Table1Activity
 
     private Table1Data table1Data;
 
-    private TextView id_biolab_tv, id_sample, smiles, soluble, notes;
+    private TextView id_biolab_tv, id_sample;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,12 +115,21 @@ public class Table1Activity
         this.presenter = presenter;
     }
 
+
+    /**
+     * Method that creates a new webclient and draw the structure of molecule by adding the smiles
+     * to the link
+     */
     public void drawStructure() {
         wv1.setWebViewClient(new WebViewClient()); //To open the webpage on our APP
         wv1.loadUrl("https://cactus.nci.nih.gov/chemical/structure/" + table1Data.getSmiles() + "/image");
 
 
     }
+
+    /**
+     * Method that builds the recylcler view
+     */
 
     public void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.listview);
@@ -156,6 +165,10 @@ public class Table1Activity
             }
         });
     }
+
+    /**
+     * Method that creates a list with the CardViewItems
+     */
 
     public void createList() {
         cardViewItems = new ArrayList<>();

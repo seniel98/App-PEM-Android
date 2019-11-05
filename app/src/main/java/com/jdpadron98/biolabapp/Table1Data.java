@@ -32,8 +32,8 @@ public class Table1Data {
     }
 
     /**
-     *
-     * @return
+     * Method that gets the whole id of biolab
+     * @return The three letters of the ID plus the four numbers of the ID
      */
     public String getAllID() {
         return id_biolab + num_id_biolab;

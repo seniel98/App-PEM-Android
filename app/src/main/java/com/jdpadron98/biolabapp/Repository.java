@@ -57,12 +57,13 @@ public class Repository implements Contract {
     }
 
     /**
-     *
+     * Method that registers a user in our application
      * @param email
      * @param password
      * @param registerCallback
      */
     public void register(final String email, final String password, final Contract.RegisterCallback registerCallback) {
+        //TODO Send email verifcation
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,7 +80,7 @@ public class Repository implements Contract {
     }
 
     /**
-     *
+     * Method that LogIn a user in our application
      * @param email
      * @param password
      * @param loginCallback
@@ -100,7 +101,8 @@ public class Repository implements Contract {
     }
 
     /**
-     *
+     * Method that retrieves the data from Firebase depending on the ID and the add it to the variables
+     * of the class Table1Data and Table2Data
      * @param table1Data
      * @param table2Data
      * @param dataCallback
@@ -162,7 +164,7 @@ public class Repository implements Contract {
     }
 
     /**
-     *
+     * Method that retrieves the ID depending of the user or if the user is logged in or not
      * @param table1Data
      * @param dataCallback
      */
@@ -196,7 +198,7 @@ public class Repository implements Contract {
     }
 
     /**
-     *
+     * Method that close the current session of the user
      * @param logoutCallback
      */
     public void logout(LogoutCallback logoutCallback) {
