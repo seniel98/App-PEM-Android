@@ -19,6 +19,10 @@ public class GuestModel implements GuestContract.Model {
 
     }
 
+    @Override
+    public void getID(Table1Data table1Data, Contract.getIDCallback getIDCallback) {
+        repository.getID(table1Data,getIDCallback);
+    }
 
     /**
      *
@@ -28,15 +32,9 @@ public class GuestModel implements GuestContract.Model {
      */
     @Override
     public void readData(Table1Data table1Data, Table2Data table2Data, final Contract.DataCallback dataCallback) {
-        repository.getID(table1Data,dataCallback);
         repository.getData(table1Data, table2Data, dataCallback);
     }
 
-    @Override
-    public String fetchData() {
-        // Log.e(TAG, "fetchData()");
-        return "Hello";
-    }
 
 
 }

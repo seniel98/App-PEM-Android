@@ -63,7 +63,6 @@ public class Repository implements Contract {
      * @param registerCallback
      */
     public void register(final String email, final String password, final Contract.RegisterCallback registerCallback) {
-        //TODO Send email verifcation
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -112,37 +111,37 @@ public class Repository implements Contract {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Here we check if the values of the db are null
-                if (dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                if (dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                         .child("id_sample").getValue(String.class) != null &&
-                        dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                        dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                                 .child("smiles").getValue(String.class) != null &&
-                        dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                        dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                                 .child("soluble").getValue(String.class) != null &&
-                        dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                        dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                                 .child("notes").getValue(String.class) != null) {
 
-                    table1Data.setId_sample(dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                    table1Data.setId_sample(dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                             .child("id_sample").getValue(String.class));
-                    table1Data.setSmiles(dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                    table1Data.setSmiles(dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                             .child("smiles").getValue(String.class));
-                    table1Data.setSoluble(dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                    table1Data.setSoluble(dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                             .child("soluble").getValue(String.class));
-                    table1Data.setNotes(dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                    table1Data.setNotes(dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                             .child("notes").getValue(String.class));
 
-                    while (dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                    while (dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                             .child("cell_line_" + x).getValue(String.class) != null &&
-                            dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                            dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                                     .child("gL50_" + x).getValue(String.class) != null &&
-                            dataSnapshot.child(table1Data.getId_biolab()).child(table1Data.getNum_id_biolab())
+                            dataSnapshot.child(table1Data.getUserIdBiolab()).child(table1Data.getNumIdBiolab())
                                     .child("id_exp_" + x).getValue(String.class) != null) {
 
-                        cell_line_list.add(dataSnapshot.child(table1Data.getId_biolab()).
-                                child(table1Data.getNum_id_biolab()).child("cell_line_" + x).getValue(String.class));
-                        gL50_list.add(dataSnapshot.child(table1Data.getId_biolab())
-                                .child(table1Data.getNum_id_biolab()).child("gL50_" + x).getValue(String.class));
-                        id_exp_list.add(dataSnapshot.child(table1Data.getId_biolab())
-                                .child(table1Data.getNum_id_biolab()).child("id_exp_" + x).getValue(String.class));
+                        cell_line_list.add(dataSnapshot.child(table1Data.getUserIdBiolab()).
+                                child(table1Data.getNumIdBiolab()).child("cell_line_" + x).getValue(String.class));
+                        gL50_list.add(dataSnapshot.child(table1Data.getUserIdBiolab())
+                                .child(table1Data.getNumIdBiolab()).child("gL50_" + x).getValue(String.class));
+                        id_exp_list.add(dataSnapshot.child(table1Data.getUserIdBiolab())
+                                .child(table1Data.getNumIdBiolab()).child("id_exp_" + x).getValue(String.class));
                         x++;
                     }
                     table2Data.setCell_line_list(cell_line_list);
@@ -166,26 +165,26 @@ public class Repository implements Contract {
     /**
      * Method that retrieves the ID depending of the user or if the user is logged in or not
      * @param table1Data
-     * @param dataCallback
+     * @param getIDCallback
      */
-    public void getID(final Table1Data table1Data, final Contract.DataCallback dataCallback) {
+    public void getID(final Table1Data table1Data, final Contract.getIDCallback getIDCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (user != null) {
+                if (auth.getCurrentUser() != null) {
                     //There is an active session
-                    if (dataSnapshot.child(user.getUid()).child("id").getValue(String.class) == null) {
-                        dataCallback.getIDError(true);
+                    if (dataSnapshot.child(auth.getCurrentUser().getUid()).child("id").getValue(String.class) == null) {
+                        getIDCallback.getIDError(true,"");
                     } else {
-                        table1Data.setId_biolab(dataSnapshot.child(user.getUid()).child("id").getValue(String.class));
-                        dataCallback.getIDError(false);
+                        String userID = dataSnapshot.child(auth.getCurrentUser().getUid()).child("id").getValue(String.class);
+                        getIDCallback.getIDError(false,userID);
                     }
 
                 } else {
                     //There is no active session (GUEST MODE)
-                    table1Data.setId_biolab(dataSnapshot.child("guest").child("id").getValue(String.class));
-                    System.out.println(table1Data.getId_biolab());
-                    dataCallback.getIDError(false);
+                    String userID = dataSnapshot.child("guest").child("id").getValue(String.class);
+                    System.out.println(table1Data.getUserIdBiolab());
+                    getIDCallback.getIDError(false,userID);
                 }
             }
 

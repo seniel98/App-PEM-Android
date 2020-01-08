@@ -12,8 +12,6 @@ public interface ProfileContract {
     interface View {
         void injectPresenter(Presenter presenter);
 
-        void displayData(ProfileViewModel viewModel);
-
         void enableProgressBar();
 
         void disableProgressBar();
@@ -29,21 +27,23 @@ public interface ProfileContract {
 
         void injectRouter(Router router);
 
-        void fetchData();
-
         void logout();
 
         void scanQR();
 
         void interactWithModelQR(String qr_id_bio, String qr_id_bio_num);
 
-        void interactWithModel();
+        void callReadData();
+
+        void callGetId();
     }
 
     interface Model {
         String fetchData();
 
         void logout(final Contract.LogoutCallback logoutCallback);
+
+        void getID(Table1Data table1Data, final Contract.getIDCallback getIDCallback);
 
         void readData(Table1Data table1Data, Table2Data table2Data, final Contract.DataCallback dataCallback);
 
@@ -55,6 +55,8 @@ public interface ProfileContract {
         void passDataToNextScreen(ProfileState state);
 
         ProfileState getDataFromPreviousScreen();
+
+        void idError();
 
         void logout();
 

@@ -70,6 +70,12 @@ public class ProfileRouter implements ProfileContract.Router {
     }
 
     @Override
+    public void idError() {
+        Context context = mediator.getApplicationContext();
+        Toast.makeText(context,"No id for user. Please contact jmpadron@ull.edu.es",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void displayNoDataFound() {
         Context context = mediator.getApplicationContext();
         Toast.makeText(context, "No data found for that ID", Toast.LENGTH_SHORT).show();

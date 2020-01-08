@@ -89,15 +89,6 @@ public class ProfileActivity
         //presenter.fetchData();
     }
 
-
-    @Override
-    public void displayData(ProfileViewModel viewModel) {
-        //Log.e(TAG, "displayData()");
-
-        // deal with the data
-        //((TextView) findViewById(R.id.data)).setText(viewModel.data);
-    }
-
     public void clickLogout(View view) {
         presenter.logout();
     }
@@ -120,7 +111,8 @@ public class ProfileActivity
             txt_field.setError("ID must not contain '.', '#', '$', '[', or ']'");
            } else {
             enableProgressBar();
-            presenter.interactWithModel();
+            presenter.callGetId();
+            presenter.callReadData();
         }
     }
 

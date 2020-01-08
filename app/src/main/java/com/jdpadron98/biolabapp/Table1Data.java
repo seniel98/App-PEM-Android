@@ -2,8 +2,8 @@ package com.jdpadron98.biolabapp;
 
 public class Table1Data {
 
-    private String id_biolab; //The three letters of the ID
-    private String num_id_biolab; //The four numbers of the ID
+    private String userIdBiolab; //The three letters of the ID
+    private String numIdBiolab; //The four numbers of the ID
     private String id_sample;
     private String smiles;
     private String soluble;
@@ -36,23 +36,23 @@ public class Table1Data {
      * @return The three letters of the ID plus the four numbers of the ID
      */
     public String getAllID() {
-        return id_biolab + num_id_biolab;
+        return userIdBiolab + numIdBiolab;
     }
 
-    public String getId_biolab() {
-        return id_biolab;
+    public String getUserIdBiolab() {
+        return userIdBiolab;
     }
 
-    public void setId_biolab(String id_biolab) {
-        this.id_biolab = id_biolab;
+    public void setUserIdBiolab(String userIdBiolab) {
+        this.userIdBiolab = userIdBiolab;
     }
 
-    public String getNum_id_biolab() {
-        return num_id_biolab;
+    public String getNumIdBiolab() {
+        return numIdBiolab;
     }
 
-    public void setNum_id_biolab(String num_id_biolab) {
-        this.num_id_biolab = num_id_biolab;
+    public void setNumIdBiolab(String numIdBiolab) {
+        this.numIdBiolab = numIdBiolab;
     }
 
     public void setSmiles(String smiles) {

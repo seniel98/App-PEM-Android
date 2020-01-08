@@ -10,14 +10,17 @@ public interface Contract {
 
     void getData(Table1Data table1Data, Table2Data table2Data, Contract.DataCallback dataCallback);
 
-    void getID(Table1Data table1Data, Contract.DataCallback dataCallback);
+    void getID(Table1Data table1Data, Contract.getIDCallback getIDCallback);
 
     void logout(LogoutCallback logoutCallback);
 
     interface DataCallback {
         void getDataError(boolean error);
 
-        void getIDError(boolean error);
+    }
+
+    interface getIDCallback{
+        void getIDError(boolean error,String userID);
     }
 
     interface RegisterCallback {

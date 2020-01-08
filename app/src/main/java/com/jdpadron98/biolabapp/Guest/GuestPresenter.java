@@ -16,6 +16,9 @@ public class GuestPresenter implements GuestContract.Presenter {
     private GuestContract.Model model;
     private GuestContract.Router router;
 
+    private Table1Data table1Data;
+    private Table2Data table2Data;
+
     private ArrayList<String> arrayListTable1 = new ArrayList<>();
     private ArrayList<String> cell_line_list = new ArrayList<>();
     private ArrayList<String> gL50_list = new ArrayList<>();
@@ -23,6 +26,8 @@ public class GuestPresenter implements GuestContract.Presenter {
 
 
     public GuestPresenter(GuestState state) {
+        table1Data = new Table1Data("", "", "", "");
+        table2Data = new Table2Data(cell_line_list, gL50_list, id_exp_list);
         viewModel = state;
     }
 
@@ -31,17 +36,8 @@ public class GuestPresenter implements GuestContract.Presenter {
      * to the variables of Table1Data and Table2Data and then pass them to the router
      */
     @Override
-    public void interactWithModel() {
-        final Table1Data table1Data = new Table1Data("", "", "", "");
-        final Table2Data table2Data = new Table2Data(cell_line_list, gL50_list, id_exp_list);
-        table1Data.setNum_id_biolab(view.get().getID());
+    public void callReadData() {
         model.readData(table1Data, table2Data, new Contract.DataCallback() {
-            @Override
-            public void getIDError(boolean error){
-                if(!error){
-                }
-
-            }
             @Override
             public void getDataError(boolean error) {
                 if (!error) {
@@ -66,35 +62,18 @@ public class GuestPresenter implements GuestContract.Presenter {
         });
     }
 
-
     @Override
-    public void fetchData() {
-        // Log.e(TAG, "fetchData()");
-
-        // use passed state if is necessary
-        /*GuestState state = router.getDataFromPreviousScreen();
-        if (state != null) {
-
-            // update view and model state
-            viewModel.data = state.data;
-
-            // update the view
-            view.get().displayData(viewModel);
-
-            return;
-        }
-
-        // call the model  
-        String data = model.fetchData();
-
-        // set view state
-        viewModel.data = data;
-
-        // update the view
-        view.get().displayData(viewModel);
-*/
+    public void callGetId() {
+        model.getID(table1Data, new Contract.getIDCallback() {
+            @Override
+            public void getIDError(boolean error, String userID) {
+                if (!error){
+                    table1Data.setUserIdBiolab(userID);
+                    table1Data.setNumIdBiolab(view.get().getID());
+                }
+            }
+        });
     }
-
 
     @Override
     public void injectView(WeakReference<GuestContract.View> view) {

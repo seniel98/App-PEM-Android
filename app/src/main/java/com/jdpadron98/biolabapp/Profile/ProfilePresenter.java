@@ -17,12 +17,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private ProfileContract.Model model;
     private ProfileContract.Router router;
 
+    private Table1Data table1Data;
+    private Table2Data table2Data;
+
     private ArrayList<String> arrayListTable1 = new ArrayList<>();
     private ArrayList<String> cell_line_list = new ArrayList<>();
     private ArrayList<String> gL50_list = new ArrayList<>();
     private ArrayList<String> id_exp_list = new ArrayList<>();
 
     public ProfilePresenter(ProfileState state) {
+        table1Data = new Table1Data("", "", "", "");
+        table2Data = new Table2Data(cell_line_list, gL50_list, id_exp_list);
         viewModel = state;
     }
 
@@ -44,17 +49,25 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void interactWithModel(){
-        final Table1Data table1Data = new Table1Data("", "", "", "");
-        final Table2Data table2Data = new Table2Data(cell_line_list, gL50_list, id_exp_list);
-        table1Data.setNum_id_biolab(view.get().getID());
-        model.readData(table1Data, table2Data, new Contract.DataCallback() {
+    public void callGetId() {
+        model.getID(table1Data, new Contract.getIDCallback() {
             @Override
-            public void getIDError(boolean error){
-                if(!error){
+            public void getIDError(boolean error, String userID) {
+                if (!error) {
+                    table1Data.setUserIdBiolab(userID);
+                    System.out.println("Call getID");
+                    System.out.println(userID);
+                    table1Data.setNumIdBiolab(view.get().getID());
+                }else{
+                    router.idError();
                 }
-
             }
+        });
+    }
+
+    @Override
+    public void callReadData() {
+        model.readData(table1Data, table2Data, new Contract.DataCallback() {
             @Override
             public void getDataError(boolean error) {
                 if (!error) {
@@ -81,23 +94,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
 
     /**
-     *
      * @param qr_id_bio
      * @param qr_id_bio_num
      */
     @Override
-    public void interactWithModelQR(String qr_id_bio,String qr_id_bio_num) {
+    public void interactWithModelQR(String qr_id_bio, String qr_id_bio_num) {
         final Table1Data table1Data = new Table1Data("", "", "", "");
         final Table2Data table2Data = new Table2Data(cell_line_list, gL50_list, id_exp_list);
-        table1Data.setId_biolab(qr_id_bio);
-        table1Data.setNum_id_biolab(qr_id_bio_num);
+        table1Data.setUserIdBiolab(qr_id_bio);
+        table1Data.setNumIdBiolab(qr_id_bio_num);
         System.out.println(table1Data.getAllID());
         model.readData(table1Data, table2Data, new Contract.DataCallback() {
-            @Override
-            public void getIDError(boolean error) {
-
-            }
-
             @Override
             public void getDataError(boolean error) {
                 if (!error) {
@@ -119,34 +126,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 }
             }
         });
-    }
-
-    @Override
-    public void fetchData() {
-        // Log.e(TAG, "fetchData()");
-
-        // use passed state if is necessary
-        /*ProfileState state = router.getDataFromPreviousScreen();
-        if (state != null) {
-
-            // update view and model state
-            viewModel.data = state.data;
-
-            // update the view
-            view.get().displayData(viewModel);
-
-            return;
-        }
-
-        // call the model  
-        String data = model.fetchData();
-
-        // set view state
-        viewModel.data = data;
-
-        // update the view
-        view.get().displayData(viewModel);
-*/
     }
 
 

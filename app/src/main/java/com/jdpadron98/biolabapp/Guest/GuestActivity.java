@@ -45,17 +45,6 @@ public class GuestActivity
         //presenter.fetchData();
     }
 
-
-    @Override
-    public void displayData(GuestViewModel viewModel) {
-
-
-        //Log.e(TAG, "displayData()");
-
-        // deal with the data
-        // ((TextView) findViewById(R.id.data)).setText(viewModel.data);
-    }
-
     /**
      *
      * @param view
@@ -68,7 +57,8 @@ public class GuestActivity
             tv.setError("ID must not contain '.', '#', '$', '[', or ']'");
         } else {
             enableProgressBar();
-            presenter.interactWithModel();
+            presenter.callGetId();
+            presenter.callReadData();
         }
     }
 

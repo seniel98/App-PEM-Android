@@ -12,8 +12,6 @@ public interface GuestContract {
     interface View {
         void injectPresenter(Presenter presenter);
 
-        void displayData(GuestViewModel viewModel);
-
         String getID();
 
         void enableProgressBar();
@@ -29,15 +27,17 @@ public interface GuestContract {
 
         void injectRouter(Router router);
 
-        void fetchData();
+        void callReadData();
 
-        void interactWithModel();
+        void callGetId();
+
+
     }
 
     interface Model {
-        String fetchData();
+        void getID(Table1Data table1Data, final Contract.getIDCallback getIDCallback);
 
-        void readData(Table1Data table1Data,Table2Data table2Data, final Contract.DataCallback dataCallback);
+        void readData(Table1Data table1Data, Table2Data table2Data, final Contract.DataCallback dataCallback);
 
 
     }
