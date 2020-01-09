@@ -201,6 +201,7 @@ public class Repository implements Contract {
      * @param logoutCallback
      */
     public void logout(LogoutCallback logoutCallback) {
+        user = auth.getCurrentUser();
         if (user != null) {
             //If there is an active session you can logout
             FirebaseAuth.getInstance().signOut();

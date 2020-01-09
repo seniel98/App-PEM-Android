@@ -19,6 +19,7 @@
     <string name="confirmpassword">Repeat Password</string>
     <string name="logout">LogOut</string>
     <string name="qrcode">Scan QR Code</string>
+    <string name="examplehint">Ex: 0000</string>
 
 
 </resources>
